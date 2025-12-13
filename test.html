@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clip-path Navbar Example</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      background: hotpink;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .header .menu-btn {
+      font-size: 1.8rem;
+      color: white;
+      cursor: pointer;
+      display: none; /* hidden on desktop */
+    }
+
+    .navbar {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      transition: clip-path 0.4s ease-in-out;
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* collapsed */
+    }
+
+    .navbar a {
+      padding: 1rem;
+      text-decoration: none;
+      color: hotpink;
+      font-weight: bold;
+      border-bottom: 1px solid #eee;
+    }
+
+    .navbar.active {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* expanded */
+    }
+
+    /* Desktop view */
+    @media (min-width: 768px) {
+      .header .menu-btn {
+        display: none;
+      }
+
+      .navbar {
+        position: static;
+        flex-direction: row;
+        clip-path: none !important;
+        background: none;
+      }
+
+      .navbar a {
+        border: none;
+        margin-left: 1.5rem;
+        color: white;
+      }
+    }
+
+    /* Mobile view */
+    @media (max-width: 767px) {
+      .header .menu-btn {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">Mimi Beauty</div>
+    <div class="menu-btn" id="menu-btn">&#9776;</div> <!-- hamburger icon -->
+    <nav class="navbar" id="navbar">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#shop">Shop</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#blogs">Blogs</a>
+    </nav>
+  </header>
+
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const navbar = document.getElementById("navbar");
+
+    menuBtn.addEventListener("click", () => {
+      navbar.classList.toggle("active");
+    });
+  </script>
+
+</body>
+</html>
